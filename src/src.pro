@@ -9,13 +9,12 @@ CONFIG += sailfishapp
 #Log4Qt
 LIBS += -L$$OUT_PWD/../ext/Log4Qt/ -llog4qt
 INCLUDEPATH += ../ext/Log4Qt/src ../ext/Log4Qt/deploy/include
-QMAKE_RPATHDIR += /usr/share/harbour-log4qt-trial/lib
+QMAKE_RPATHDIR += /usr/share/$$TARGET/lib
 
 log4qt_library.files=$$OUT_PWD/../ext/Log4Qt/liblog4qt.*
 log4qt_library.path=/usr/share/$$TARGET/lib
 
 INSTALLS += log4qt_library
-
 
 SOURCES += main.cpp
 
@@ -28,6 +27,7 @@ OTHER_FILES = \
 #    ../rpm/harbour-log4qt-demo.yaml \
     ../rpm/harbour-log4qt-demo.spec \
     qml/pages/SailCalc.qml \
-    qml/main.qml
+    qml/main.qml \
+    harbour-log4qt-demo.desktop
 
 INCLUDEPATH += $$PWD

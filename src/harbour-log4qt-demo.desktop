@@ -1,6 +1,6 @@
 [Desktop Entry]
 Type=Application
 X-Nemo-Application-Type=silica-qt5
-Name=Helloworld Pro
+Name=Log4Qt demo
 Icon=harbour-log4qt-demo
 Exec=harbour-log4qt-demo

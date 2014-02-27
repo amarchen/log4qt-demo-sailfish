@@ -15,10 +15,10 @@ Name:       harbour-log4qt-demo
 %{!?qtc_make:%define qtc_make make}
 %{?qtc_builddir:%define _builddir %qtc_builddir}
 Summary:    Helloworld Pro for Sailfish
-Version:    0.5
-Release:    5
+Version:    0.1
+Release:    1
 Group:      Qt/Qt
-License:    Public domain except for the icon
+License:    MIT
 Source0:    %{name}-%{version}.tar.bz2
 Source100:  harbour-log4qt-demo.yaml
 Requires:   libsailfishapp
@@ -29,7 +29,7 @@ BuildRequires:  pkgconfig(sailfishapp)
 BuildRequires:  desktop-file-utils
 
 %description
-Missing Helloworld for Sailfish OS. Use this project for a good app start
+Log4Qt logging library usage demo
 
 %package test
 Summary:    Tests for the Helloworld Pro for Sailfish
