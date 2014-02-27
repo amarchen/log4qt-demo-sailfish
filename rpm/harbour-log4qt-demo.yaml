@@ -26,6 +26,10 @@ Files:
 - '%{_datadir}/%{name}/qml'
 
 - '%attr(0755,-,-) %{_bindir}/%{name}'
+
+#lib stuff then
+- '%{_datadir}/%{name}/lib'
+
 PkgBR: []
 
 SubPackages:

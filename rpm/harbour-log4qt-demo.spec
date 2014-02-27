@@ -6,6 +6,8 @@
 Name:       harbour-log4qt-demo
 
 # >> macros
+%define __provides_exclude_from ^%{_datadir}/.*$
+%define __requires_exclude ^liblog4qt.*$
 # << macros
 
 %{!?qtc_qmake:%define qtc_qmake %qmake}
@@ -76,6 +78,7 @@ desktop-file-install --delete-original       \
 %{_datadir}/applications/%{name}.desktop
 %{_datadir}/%{name}/qml
 %attr(0755,-,-) %{_bindir}/%{name}
+%{_datadir}/%{name}/lib
 # >> files
 # << files
 
