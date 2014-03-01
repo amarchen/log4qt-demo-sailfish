@@ -16,7 +16,9 @@ log4qt_library.path=/usr/share/$$TARGET/lib
 
 INSTALLS += log4qt_library
 
-SOURCES += main.cpp
+SOURCES += main.cpp \
+    company.cpp \
+    person.cpp
 
 OTHER_FILES = \
 # You DO NOT want .yaml be listed here as Qt Creator's editor is completely not ready for multi package .yaml's
@@ -31,3 +33,7 @@ OTHER_FILES = \
     harbour-log4qt-demo.desktop
 
 INCLUDEPATH += $$PWD
+
+HEADERS += \
+    company.h \
+    person.h

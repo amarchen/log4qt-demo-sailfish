@@ -14,26 +14,38 @@
 #include "Logger"
 #include "LogManager"
 
+#include "company.h"
+#include "person.h"
 
-int main(int argc, char *argv[])
-{
+void initLogger() {
+
+    // Normally you call it all from .conf properties, but you can instantiate it manually too
 
     Log4Qt::LogManager::rootLogger();
-//    Log4Qt::TTCCLayout *p_layout = new Log4Qt::TTCCLayout();
     Log4Qt::SimpleTimeLayout *p_layout = new Log4Qt::SimpleTimeLayout();
 
-    p_layout->setName(QLatin1String("My Layout"));
+    p_layout->setName(QLatin1String("root layout"));
     p_layout->activateOptions();
-    // Create an appender
-//    Log4Qt::ConsoleAppender *p_appender = new Log4Qt::ConsoleAppender(p_layout, Log4Qt::ConsoleAppender::STDOUT_TARGET);
-    Log4Qt::ColorConsoleAppender *p_appender = new Log4Qt::ColorConsoleAppender(p_layout, Log4Qt::ColorConsoleAppender::STDOUT_TARGET);
 
-    p_appender->setName(QLatin1String("My Appender"));
+    // Create an appender
+    Log4Qt::ColorConsoleAppender *p_appender = new Log4Qt::ColorConsoleAppender(p_layout, Log4Qt::ColorConsoleAppender::STDOUT_TARGET);
+    p_appender->setName(QLatin1String("root appender"));
     p_appender->activateOptions();
+
     // Set appender on root logger
     Log4Qt::Logger::rootLogger()->addAppender(p_appender);
 
-    Log4Qt::Logger::logger(QLatin1String("My Logger"))->info("Hello World! %1 : %2", 23, "another inline string");
+    Log4Qt::Logger::logger(QLatin1String("Main Logger"))->info("Logging started");
+}
+
+int main(int argc, char *argv[])
+{
+    Person billGates("Bill Gates");
+    Person stevenElop("Steven Elop");
+    Company microsoft("Microsoft");
+    microsoft.setCeo(&billGates);
+    microsoft.setCeo(&stevenElop);
+
 
     // For this example, wizard-generates single line code would be good enough,
     // but very soon it won't be enough for you anyway, so use this more detailed example from start
