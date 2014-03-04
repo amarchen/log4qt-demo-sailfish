@@ -44,7 +44,17 @@ SubPackages:
       Requires:
       - qt5-qtdeclarative-import-qttest
       Files:
-        - '%{_bindir}/tst-harbour-log4qt-demo'
-        - '%{_datadir}/tst-harbour-log4qt-demo/*.qml'
+        - '%{_bindir}/tst-harbour-log4qt-demo-cppTests'
+        - '%{_bindir}/tst-harbour-log4qt-demo-qmlTests'
+        - '%{_datadir}/tst-harbour-log4qt-demo-qmlTests/*.qml'
         # Script for starting tests on emulator and device
-        - '%{_datadir}/tst-harbour-log4qt-demo/*.sh'
+        - '%{_datadir}/tst-harbour-log4qt-demo-qmlTests/*.sh'
+
+    # - Name: fake
+    #   Summary: Tests for the Helloworld Pro for Sailfish
+    #   Group: Qt/Qt
+    #   Description: |-
+    #     Tests package for the Helloworld Pro for Sailfish
+    #   AutoDepend: true
+    #   Files:
+    #     - '%{_datadir}/log4qt-demo-engine/lib'

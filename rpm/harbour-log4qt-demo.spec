@@ -84,8 +84,9 @@ desktop-file-install --delete-original       \
 
 %files test
 %defattr(-,root,root,-)
-%{_bindir}/tst-harbour-log4qt-demo
-%{_datadir}/tst-harbour-log4qt-demo/*.qml
-%{_datadir}/tst-harbour-log4qt-demo/*.sh
+%{_bindir}/tst-harbour-log4qt-demo-cppTests
+%{_bindir}/tst-harbour-log4qt-demo-qmlTests
+%{_datadir}/tst-harbour-log4qt-demo-qmlTests/*.qml
+%{_datadir}/tst-harbour-log4qt-demo-qmlTests/*.sh
 # >> files test
 # << files test
