@@ -18,12 +18,10 @@ INSTALLS += target
 
 SOURCES += \
     company.cpp \
-    person.cpp \
-    log4qtdemoengine.cpp
+    person.cpp
 
 HEADERS += \
     company.h \
-    person.h \
-    log4qtdemoengine.h
+    person.h
 
 INCLUDEPATH += $$PWD

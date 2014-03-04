@@ -10,6 +10,9 @@ LIBS += -L$$OUT_PWD/../../ext/Log4Qt/ -llog4qt
 LIBS += -L$$OUT_PWD/../engine/ -llog4qt-demo-engine
 QMAKE_RPATHDIR += /usr/share/$$TARGET/lib
 
+INCLUDEPATH += ../../ext/Log4Qt/src ../../ext/Log4Qt/deploy/include
+
+
 engine_and_libs.files += $$OUT_PWD/../../engine/*.so
 engine_and_libs.files += $$OUT_PWD/../../ext/Log4Qt/*.so
 engine_and_libs.path = /usr/share/$$TARGET/lib
