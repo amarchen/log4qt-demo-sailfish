@@ -16,11 +16,13 @@ QMAKE_RPATHDIR += /usr/share/harbour-log4qt-demo/lib
 
 
 SOURCES += main.cpp \
-    testperson.cpp
+    testperson.cpp \
+    testcompany.cpp
 
 INSTALLS += target
 
-INCLUDEPATH = ../../src
+INCLUDEPATH = ../../src/engine
 
 HEADERS += \
-    testperson.h
+    testperson.h \
+    testcompany.h
