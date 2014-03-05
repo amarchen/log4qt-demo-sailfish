@@ -1,7 +1,7 @@
 #include "testperson.h"
 #include "person.h"
 
-//#include <QSignalSpy>
+#include <QtTest/QtTest>
 
 TestPerson::TestPerson(QObject *parent) :
     QObject(parent)

@@ -2,7 +2,6 @@
 #define TESTPERSON_H
 
 #include <QObject>
-#include <QtTest/QtTest>
 
 class TestPerson : public QObject
 {

@@ -1,5 +1,17 @@
 #include <QtTest/QtTest>
 #include "testperson.h"
+#include "testcompany.h"
 
-// SailCalcTestSet is just a convenient name for reports - not linked to any of the main project entities
-QTEST_MAIN(TestPerson)
+int main()
+
+{
+
+  TestPerson tP;
+  QTest::qExec(&tP);
+
+  TestCompany tC;
+  QTest::qExec(&tC);
+
+  return 0;
+
+}
