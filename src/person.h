@@ -3,13 +3,11 @@
 
 #include <QObject>
 
-#include "Logger"
 #include <QDebug>
 
 class Person : public QObject
 {
     Q_OBJECT
-    LOG4QT_DECLARE_QCLASS_LOGGER
     Q_PROPERTY(QString name READ name WRITE setName NOTIFY nameChanged)
 public:
     explicit Person(const QString& name, QObject* parent = 0);

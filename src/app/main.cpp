@@ -5,8 +5,6 @@
 #include "person.h"
 #include "company.h"
 
-#include "log4qtdemoengine.h"
-
 #include <sailfishapp.h>
 #include <QScopedPointer>
 #include <QQuickView>

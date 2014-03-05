@@ -4,7 +4,6 @@
 
 LOG4QT_DECLARE_STATIC_LOGGER(logger, Person)
 
-
 Person::Person(const QString& name, QObject *parent) :
     QObject(parent)
 {

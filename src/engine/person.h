@@ -4,7 +4,14 @@
 #include <QObject>
 #include <QDebug>
 
-class Person : public QObject
+#if defined(LOG4QTDEMOENGINE_LIBRARY)
+#  define LOG4QTDEMOENGINE_EXPORT Q_DECL_EXPORT
+#else
+#  define LOG4QTDEMOENGINE_EXPORT Q_DECL_IMPORT
+#endif
+
+
+class LOG4QTDEMOENGINE_EXPORT Person : public QObject
 {
     Q_OBJECT
     Q_PROPERTY(QString name READ name WRITE setName NOTIFY nameChanged)
