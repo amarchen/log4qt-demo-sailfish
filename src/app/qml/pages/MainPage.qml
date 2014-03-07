@@ -15,25 +15,38 @@ Page {
         name: "Bill Gates"
     }
 
+    Person {
+        id: steven
+        name: "Steven Elop"
+    }
+
+    Company {
+        id: c1
+        name: "Nokia"
+        ceo: steven
+    }
+
+    Company {
+        id: c2
+        name: "Microsoft"
+        ceo: bill
+    }
+    PageHeader {
+        id: header
+        title: "Business world"
+    }
+
     // To enable PullDownMenu, place our content in a SilicaFlickable
     SilicaFlickable {
-        anchors.fill: parent
-        PageHeader {
-            title: "Business world"
-        }
+        anchors.top: header.bottom
+        anchors.left: parent.left
+        anchors.right: parent.right
+        anchors.bottom: parent.bottom
 
         // PullDownMenu and PushUpMenu must be declared in SilicaFlickable, SilicaListView or SilicaGridView
-        PullDownMenu {
-            id: pullDownMenu
-            MenuItem {
-                id: subtractMenuAction
-                text: "Subtract!"
-                onClicked: {
-                    console.log("subtractMenuAction clicked")
-                    subtrLabel.text = "A-B = " + (parseInt(a.text) - parseInt(b.text))
-                }
-            }
-        }
+//        PullDownMenu {
+//            id: pullDownMenu
+//        }
         
         // Tell SilicaFlickable the height of its content.
         contentHeight: childrenRect.height
@@ -45,12 +58,46 @@ Page {
             anchors.margins: Theme.paddingLarge
             spacing: Theme.paddingLarge
             Item {
-                height: 20
+                height: childrenRect.height
                 width: parent.width
-                Text {
-                    text: "Bill's name is " + bill.name
+                Label {
+                    text: "Company1 is " + c1.name
                 }
             }
+            Item {
+                height: childrenRect.height
+                width: parent.width
+                Label {
+                    text: "Company1 CEO is " + c1.ceo.name
+                }
+            }
+
+            Item {
+                height: childrenRect.height
+                width: parent.width
+                Label {
+                    text: "Company2 is " + c2.name
+                }
+            }
+
+            Item {
+                height: childrenRect.height
+                width: parent.width
+                Label {
+                    text: "Company2 CEO is " + c2.ceo.name
+                }
+            }
+            Item {
+                height: childrenRect.height
+                width: parent.width
+                Button {
+                    text: "Make C1 CEO head C2 as well!"
+                    onClicked: {
+                        c2.ceo = c1.ceo
+                    }
+                }
+            }
+
         }
     }
 
