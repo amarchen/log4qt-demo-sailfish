@@ -11,7 +11,7 @@ class Company : public QObject
     Q_PROPERTY(Person* ceo READ ceo WRITE setCeo NOTIFY ceoChanged)
     Q_PROPERTY(QString name READ name WRITE setName NOTIFY nameChanged)
 public:
-    explicit Company(const QString& name, QObject *parent = 0);
+    explicit Company(const QString& name = QString(), QObject *parent = 0);
     virtual ~Company();
     Person* ceo() const;
 

@@ -7,7 +7,7 @@ ApplicationWindow
     initialPage: sailCalcComponent
     Component {
         id: sailCalcComponent
-        SailCalc { }
+        MainPage { }
     }
 }
 

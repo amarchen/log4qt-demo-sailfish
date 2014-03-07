@@ -16,7 +16,7 @@ class LOG4QTDEMOENGINE_EXPORT Person : public QObject
     Q_OBJECT
     Q_PROPERTY(QString name READ name WRITE setName NOTIFY nameChanged)
 public:
-    explicit Person(const QString& name, QObject* parent = 0);
+    explicit Person(const QString& name = QString(), QObject* parent = 0);
 
     QString name() const;
 

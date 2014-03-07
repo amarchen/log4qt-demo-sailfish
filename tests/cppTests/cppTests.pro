@@ -1,4 +1,4 @@
-TARGET = tst-harbour-log4qt-demo-cppTests
+TARGET = tst-harbour-log4qtdemo-cppTests
 
 TARGETPATH = /usr/bin
 target.path = $$TARGETPATH
@@ -9,10 +9,10 @@ qml.path = $$DEPLOYMENT_PATH
 QT += testlib
 
 LIBS += -L$$OUT_PWD/../../ext/Log4Qt/ -llog4qt
-LIBS += -L$$OUT_PWD/../../src/engine/ -llog4qt-demo-engine
+LIBS += -L$$OUT_PWD/../../src/engine/ -llog4qtdemo-engine
 
 # TODO: pass path from the higher level project
-QMAKE_RPATHDIR += /usr/share/harbour-log4qt-demo/lib
+QMAKE_RPATHDIR += /usr/share/harbour-log4qtdemo/lib
 
 
 SOURCES += main.cpp \

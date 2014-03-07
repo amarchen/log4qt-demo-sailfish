@@ -43,16 +43,22 @@ int main(int argc, char *argv[])
 {
 
     initLogging();
-    Person billGates("Bill Gates");
-    Person stevenElop("Steven Elop");
-    Company microsoft("Microsoft");
-    microsoft.setCeo(&billGates);
-    microsoft.setCeo(&stevenElop);
+//    Person billGates("Bill Gates");
+//    Person stevenElop("Steven Elop");
+//    Company microsoft("Microsoft");
+//    microsoft.setCeo(&billGates);
+//    microsoft.setCeo(&stevenElop);
 
+    qmlRegisterType<Person>("harbour.log4qtdemo", 0, 1, "Person");
+    qmlRegisterType<Company>("harbour.log4qtdemo", 0, 1, "Company");
     QScopedPointer<QGuiApplication> app(SailfishApp::application(argc, argv));
     QScopedPointer<QQuickView> view(SailfishApp::createView());
 
     view->setSource(SailfishApp::pathTo("qml/main.qml"));
+//    view->rootContext()->setContextProperty("appVersion", APP_VERSION);
+//    view->rootContext()->setContextProperty("appBuildNum", APP_BUILDNUM);
+//    view->engine()->addImportPath(SailfishApp::pathTo("qml/components").toString());
+//    view->engine()->addImportPath(SailfishApp::pathTo("lib").toString());
 
     view->show();
 

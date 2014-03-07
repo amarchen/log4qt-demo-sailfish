@@ -2,5 +2,5 @@
 Type=Application
 X-Nemo-Application-Type=silica-qt5
 Name=Log4Qt demo
-Icon=harbour-log4qt-demo
-Exec=harbour-log4qt-demo
+Icon=harbour-log4qtdemo
+Exec=harbour-log4qtdemo

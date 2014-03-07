@@ -9,14 +9,14 @@
 import QtQuick 2.0
 import QtTest 1.0
 
-// At runtime proper folder to import is "../harbour-log4qt-demo/qml/pages"
+// At runtime proper folder to import is "../harbour-log4qtdemo/qml/pages"
 // You can check the main app deployment folder from it's DEPLOYMENT_PATH qmake var in .pro
 // Faster to check from .spec file, however
 
 // At design-time I uncomment import "../src/qml/pages" so that QtCreator auto-completion would work
 
 //import "../src/qml/pages"
-import "../harbour-log4qt-demo/qml/pages"
+import "../harbour-log4qtdemo/qml/pages"
 
 TestCase {
     name: "SailCalcTest"

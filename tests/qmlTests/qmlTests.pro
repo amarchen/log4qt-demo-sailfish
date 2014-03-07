@@ -1,7 +1,7 @@
 TEMPLATE = app
 
 # The name of your app
-TARGET = tst-harbour-log4qt-demo-qmlTests
+TARGET = tst-harbour-log4qtdemo-qmlTests
 
 CONFIG += qmltestcase
 

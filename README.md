@@ -18,11 +18,11 @@ Build and installation (SailfishOS IDE version)
 ------------
 
 ### Running app
-1. Import to SailfishOS IDE (aka Qt Creator): File -> Open File or Project... -> helloworld-pro-sailfish/harbour-log4qt-demo.pro
+1. Import to SailfishOS IDE (aka Qt Creator): File -> Open File or Project... -> helloworld-pro-sailfish/harbour-log4qtdemo.pro
 
 2. Choose platform kits: Uncheck Desktop, tick MerSDK-SailfishOS-i486-x86 (for the emulator) and/or arm (for the real phone) options.
 
-3. Configure build type (toolbar icon "harbour-log4qt-demo Debug"): "i486-x86" & "Debug" & "Deploy as RPM package" & "src (on Mer device)"
+3. Configure build type (toolbar icon "harbour-log4qtdemo Debug"): "i486-x86" & "Debug" & "Deploy as RPM package" & "src (on Mer device)"
 
 4. Start Sdk and Emulator (bottom-left toolbar buttons)
 
@@ -31,13 +31,13 @@ Build and installation (SailfishOS IDE version)
 6. You should see the silly primitive calculator app installed and running in the emulator.
 
 ### Running tests
-* Option 1: In the emulator console, just run `/usr/share/tst-harbour-log4qt-demo/runTestsOnDevice.sh`
+* Option 1: In the emulator console, just run `/usr/share/tst-harbour-log4qtdemo/runTestsOnDevice.sh`
 
 * Option 2: Inside SailfishOS IDE
 
  1. Toolbar -> Projects -> i486 -> Run -> Run Settings -> Run -> Run configuration -> "src (on Mer Device)" -> "Use this command instead"
 
- 2. Set "Alternate executable on device:" to `/usr/share/tst-harbour-log4qt-demo/runTestsOnDevice.sh`
+ 2. Set "Alternate executable on device:" to `/usr/share/tst-harbour-log4qtdemo/runTestsOnDevice.sh`
 
  3. Run the project again, see test results in the console
 
@@ -49,7 +49,7 @@ For more info on testing QML, you may like to start at http://www.slideshare.net
 3. Clean project. Otherwise Creator will happily package the old i486 binaries
 4. Build project
 5. Deploy project (in the Creator's Build menu)
-6. Final binaries will be located in RPMS folder and will look like `harbour-log4qt-demo-0.1-1.armv7hl.rpm` Submit this RPM to harbour
+6. Final binaries will be located in RPMS folder and will look like `harbour-log4qtdemo-0.1-1.armv7hl.rpm` Submit this RPM to harbour
 
 Build and installation (command line version)
 -----------------------
@@ -74,11 +74,11 @@ The following assumes that you have installed the SailfishOS SDK into your home 
 
 5. Exit the virtual machine and then copy the package to the phone:
 
- scp -i ~/SailfishOS/vmshare/ssh/private_keys/SailfishOS_Device/nemo RPMS/harbour-log4qt-demo-0.4-4.armv7hl.rpm nemo@ip.address.of.phone:RPMS/
+ scp -i ~/SailfishOS/vmshare/ssh/private_keys/SailfishOS_Device/nemo RPMS/harbour-log4qtdemo-0.4-4.armv7hl.rpm nemo@ip.address.of.phone:RPMS/
 
 6. Connect to the phone and install the package:
 
- ssh -i ~/SailfishOS/vmshare/ssh/private_keys/SailfishOS_Device/nemo nemo@ip.address.of.phone pkcon install-local RPMS/harbour-log4qt-demo-0.4-4.armv7hl.rpm
+ ssh -i ~/SailfishOS/vmshare/ssh/private_keys/SailfishOS_Device/nemo nemo@ip.address.of.phone pkcon install-local RPMS/harbour-log4qtdemo-0.4-4.armv7hl.rpm
 
 Random notes about the project:
 =========
@@ -86,11 +86,11 @@ Random notes about the project:
 1. Project structure
     * We follow traditional Qt project structure with main project having two subprojects: src and tests
     * .yaml file (and .spec generated from .yaml) defines two subpackages:
-        * harbour-log4qt-demo - contains just the app files. It is something you will submit to app store
-        * harbour-log4qt-demo-tests - contains just the test binary and test files. For development only
+        * harbour-log4qtdemo - contains just the app files. It is something you will submit to app store
+        * harbour-log4qtdemo-tests - contains just the test binary and test files. For development only
     * .gitignore in the current project is supposed to be useful too, we try to check in only what's really needed without any local environment details
 2. Code structure
-    * Note how tst_....qml files import the main project files. When running in device you want to import from final QML location that in this case is `../harbour-log4qt-demo/qml/pages` relative from the test project deployment folder. When editing test file on desktop QtCreator sure has no idea where the main files are located, so during desktop editing I uncomment `import ../src/qml/pages` line to make QtCreator code completion work.
+    * Note how tst_....qml files import the main project files. When running in device you want to import from final QML location that in this case is `../harbour-log4qtdemo/qml/pages` relative from the test project deployment folder. When editing test file on desktop QtCreator sure has no idea where the main files are located, so during desktop editing I uncomment `import ../src/qml/pages` line to make QtCreator code completion work.
 3. Further links
     * There are more comments in the tests code and .pro and .yaml files too
     * QtQuickTest reference - https://qt-project.org/doc/qt-5.1/qtdoc/qtquick-qtquicktest.html
