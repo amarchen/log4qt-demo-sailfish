@@ -1,6 +1,4 @@
-#ifdef QT_QML_DEBUG
 #include <QtQuick>
-#endif
 
 #include "person.h"
 #include "company.h"
@@ -22,6 +20,11 @@ void initLogging()
     // Normally you call it all from .conf properties, but you can instantiate it manually too
 
     Log4Qt::LogManager::rootLogger();
+
+    // Note that it doesn't work for QML logs from device
+    Log4Qt::LogManager::setHandleQtMessages(true);
+
+
     Log4Qt::SimpleTimeLayout *p_layout = new Log4Qt::SimpleTimeLayout();
 
     p_layout->setName(QLatin1String("root layout"));
@@ -36,6 +39,9 @@ void initLogging()
     Log4Qt::Logger::rootLogger()->addAppender(p_appender);
 
     Log4Qt::Logger::logger(QLatin1String("Main Logger"))->info("Logging started");
+
+    bool handingMessages = Log4Qt::LogManager::handleQtMessages();
+    qDebug() << "Intercepting messages from qDebug is " << handingMessages;
 }
 
 

@@ -101,6 +101,10 @@ Page {
         }
     }
 
+    Component.onCompleted: {
+        console.log("Main page completed")
+    }
+
 }
 
 
