@@ -21,10 +21,12 @@ DEFINES += LOG4QTDEMOENGINE_LIBRARY
 
 SOURCES += \
     company.cpp \
-    person.cpp
+    person.cpp #\
+#    qmllogger.cpp
 
 HEADERS += \
     company.h \
-    person.h
+    person.h #\
+#    qmllogger.h
 
 INCLUDEPATH += $$PWD

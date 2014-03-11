@@ -12,6 +12,13 @@ Page {
 
     property Logger log: Logger {name: "page"}
 
+    // testing interface
+    property QtObject _i: QtObject {
+        property alias c1: c1
+        property alias c2: c2
+        property alias changingButton: changingButton
+    }
+
     Person {
         id: bill
         name: "Bill Gates"
@@ -108,6 +115,7 @@ Page {
                 height: childrenRect.height
                 width: parent.width
                 Button {
+                    id: changingButton
                     text: "Make C1 CEO head C2 as well!"
                     onClicked: {
                         c2.ceo = c1.ceo

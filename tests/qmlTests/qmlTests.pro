@@ -3,6 +3,9 @@ TEMPLATE = app
 # The name of your app
 TARGET = tst-harbour-log4qtdemo-qmlTests
 
+# For registering engine's and app's classes
+QT += quick qml
+
 CONFIG += qmltestcase
 
 TARGETPATH = /usr/bin
@@ -19,10 +22,23 @@ extra.files = ../runTestsOnDevice.sh
 DEFINES += DEPLOYMENT_PATH=\"\\\"\"$${DEPLOYMENT_PATH}/\"\\\"\"
 
 # C++ sources
-SOURCES += main.cpp
+# Compiling QML logger straight from app sources
+# Could be not the ideal way maybe, but that's a small utility class not for testing anyway
+SOURCES += main.cpp \
+    ../../src/app/qmllogger.cpp #\
+#    fakeqmllogger.cpp
+
+INCLUDEPATH += ../../src/engine
+INCLUDEPATH += ../../src/app
+INCLUDEPATH += ../../ext/Log4Qt/src ../../ext/Log4Qt/deploy/include
+
+LIBS += -L$$OUT_PWD/../../ext/Log4Qt/ -llog4qt
+LIBS += -L$$OUT_PWD/../../src/engine/ -llog4qtdemo-engine
+QMAKE_RPATHDIR += /usr/share/harbour-log4qtdemo/lib
+
 
 # C++ headers
-HEADERS +=
+HEADERS += ../../src/app/qmllogger.h
 
 INSTALLS += target qml extra
 
@@ -30,8 +46,7 @@ INSTALLS += target qml extra
 qml.files = *.qml
 
 OTHER_FILES += \
-    tst_RealUiTest.qml \
-    tst_NonUiTests.qml
+    tst_mainPage.qml
 
 
 
