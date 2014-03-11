@@ -23,7 +23,8 @@ log4qt_demo_engine.path = /usr/share/$$TARGET/lib
 
 INSTALLS += log4qt_lib log4qt_demo_engine
 
-SOURCES += main.cpp
+SOURCES += main.cpp \
+    qmllogger.cpp
 
 OTHER_FILES = \
 # You DO NOT want .yaml be listed here as Qt Creator's editor is completely not ready for multi package .yaml's
@@ -42,7 +43,8 @@ INCLUDEPATH += $$PWD/../engine
 
 HEADERS += \
     ../engine/company.h \
-    ../engine/person.h
+    ../engine/person.h \
+    qmllogger.h
 
 OTHER_FILES += \
     qml/main.qml

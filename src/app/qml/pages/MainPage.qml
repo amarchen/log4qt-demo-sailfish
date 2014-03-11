@@ -10,9 +10,20 @@ import harbour.log4qtdemo 0.1
 Page {
     id: page
 
+    property Logger log: Logger {name: "page"}
+
     Person {
         id: bill
         name: "Bill Gates"
+        property Logger log: Logger {name: "bill"}
+
+        onNameChanged: {
+            log.debug("Name changed to " + name)
+        }
+
+        Component.onCompleted:  {
+            log.debug("Bill completed.")
+        }
     }
 
     Person {
@@ -28,9 +39,14 @@ Page {
 
     Company {
         id: c2
+        property Logger log: Logger {name: "QML Microsoft"}
         name: "Microsoft"
         ceo: bill
+        onCeoChanged: {
+            log.info("CEO changed to " + ceo.name)
+        }
     }
+
     PageHeader {
         id: header
         title: "Business world"
@@ -54,6 +70,7 @@ Page {
         // Place our content in a Column.  The PageHeader is always placed at the top
         // of the page, followed by our content.
         Column {
+            id: column
             anchors.fill: parent
             anchors.margins: Theme.paddingLarge
             spacing: Theme.paddingLarge
@@ -99,10 +116,14 @@ Page {
             }
 
         }
+
+        Component.onCompleted: {
+            log.debug("nameless flickable completed.")
+        }
     }
 
     Component.onCompleted: {
-        console.log("Main page completed")
+        log.debug("Main page completed, objectName ")
     }
 
 }

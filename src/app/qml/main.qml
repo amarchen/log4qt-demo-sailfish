@@ -9,6 +9,10 @@ ApplicationWindow
         id: sailCalcComponent
         MainPage { }
     }
+
+    Component.onCompleted: {
+        console.log("nameless AppWindow completed. objectName is " + objectName)
+    }
 }
 
 

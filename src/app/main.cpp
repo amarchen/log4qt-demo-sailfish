@@ -15,6 +15,8 @@
 #include "Logger"
 #include "LogManager"
 
+#include "qmllogger.h"
+
 void initLogging()
 {
     // Normally you call it all from .conf properties, but you can instantiate it manually too
@@ -57,6 +59,7 @@ int main(int argc, char *argv[])
 
     qmlRegisterType<Person>("harbour.log4qtdemo", 0, 1, "Person");
     qmlRegisterType<Company>("harbour.log4qtdemo", 0, 1, "Company");
+    qmlRegisterType<QmlLogger>("harbour.log4qtdemo", 0, 1, "Logger");
     QScopedPointer<QGuiApplication> app(SailfishApp::application(argc, argv));
     QScopedPointer<QQuickView> view(SailfishApp::createView());
 
