@@ -9,7 +9,9 @@ Person::Person(const QString& name, QObject *parent) :
 {
     setName(name);
     logger()->debug("Person created with name %1", name);
-    logger()->info() << "Person created, name is " << name;
+
+    // Streaming like this doesn't work for e.g. systemlogappender
+//    logger()->info() << "Person created, name is " << name;
 }
 
 QString Person::name() const

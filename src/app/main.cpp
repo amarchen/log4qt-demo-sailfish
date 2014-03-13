@@ -15,6 +15,9 @@
 #include "Logger"
 #include "LogManager"
 
+#include "SystemlogAppender"
+#include "Level"
+
 #include "qmllogger.h"
 
 void initLogging()
@@ -33,12 +36,25 @@ void initLogging()
     p_layout->activateOptions();
 
     // Create an appender
-    Log4Qt::ColorConsoleAppender *p_appender = new Log4Qt::ColorConsoleAppender(p_layout, Log4Qt::ColorConsoleAppender::STDOUT_TARGET);
-    p_appender->setName(QLatin1String("root appender"));
-    p_appender->activateOptions();
+    Log4Qt::ColorConsoleAppender *p_consoleAppender = new Log4Qt::ColorConsoleAppender(p_layout, Log4Qt::ColorConsoleAppender::STDOUT_TARGET);
+    p_consoleAppender->setName(QLatin1String("root console appender"));
+    p_consoleAppender->activateOptions();
 
-    // Set appender on root logger
-    Log4Qt::Logger::rootLogger()->addAppender(p_appender);
+    Log4Qt::SystemLogAppender *p_syslogAppender = new Log4Qt::SystemLogAppender(p_layout);
+    p_syslogAppender->setServiceName("journalctl");
+    p_syslogAppender->setName(QLatin1String("root sysylog appender"));
+    p_syslogAppender->setLayout(p_layout);
+
+    // Root logger gets all levels of logs, but let's send only
+    // important ones to syslog
+    p_syslogAppender->setThreshold(Log4Qt::Level(Log4Qt::Level::ERROR_INT));
+
+    p_syslogAppender->activateOptions();
+
+
+    // Set appenders on root logger
+    Log4Qt::Logger::rootLogger()->addAppender(p_consoleAppender);
+    Log4Qt::Logger::rootLogger()->addAppender(p_syslogAppender);
 
     Log4Qt::Logger::logger(QLatin1String("Main Logger"))->info("Logging started");
 
