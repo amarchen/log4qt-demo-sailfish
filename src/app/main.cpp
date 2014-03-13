@@ -21,7 +21,11 @@
 
 #include "qmllogger.h"
 
-void initLogging()
+/**
+ * @brief initLogging
+ * @param applicationName Is used for determining app-specific config and log file locations
+ */
+void initLogging(const QString& applicationName)
 {
     // Normally you call it all from .conf properties, but you can instantiate it manually too
 
@@ -55,7 +59,7 @@ void initLogging()
     Log4Qt::DailyRollingFileAppender *p_fileAppender =
             new Log4Qt::DailyRollingFileAppender();
     p_fileAppender->setFile(QStandardPaths::writableLocation(QStandardPaths::CacheLocation)
-                            + "/harbour-log4qtdemo/harbour-log4qtdemo.log");
+                            + "/" + applicationName + "/" + applicationName +".log");
     p_fileAppender->setDatePattern(Log4Qt::DailyRollingFileAppender::DAILY_ROLLOVER);
     p_fileAppender->setLayout(p_layout);
     p_syslogAppender->setName(QLatin1String("root file appender"));
@@ -77,25 +81,21 @@ void initLogging()
     qDebug() << "generic cache loc" << QStandardPaths::standardLocations(QStandardPaths::GenericCacheLocation);
     qDebug() << "data loc" << QStandardPaths::standardLocations(QStandardPaths::DataLocation);
     qDebug() << "generic data loc" << QStandardPaths::standardLocations(QStandardPaths::GenericDataLocation);
-    qDebug() << "app name is " << QCoreApplication::applicationName();
 }
 
 
 int main(int argc, char *argv[])
 {
 
-    initLogging();
-//    Person billGates("Bill Gates");
-//    Person stevenElop("Steven Elop");
-//    Company microsoft("Microsoft");
-//    microsoft.setCeo(&billGates);
-//    microsoft.setCeo(&stevenElop);
-
     qmlRegisterType<Person>("harbour.log4qtdemo", 0, 1, "Person");
     qmlRegisterType<Company>("harbour.log4qtdemo", 0, 1, "Company");
     qmlRegisterType<QmlLogger>("harbour.log4qtdemo", 0, 1, "Logger");
     QScopedPointer<QGuiApplication> app(SailfishApp::application(argc, argv));
+    initLogging(app->applicationName());
+
     QScopedPointer<QQuickView> view(SailfishApp::createView());
+    qDebug() << "app's name: " << app->applicationName();
+    qDebug() << "app's die path: " << app->applicationDirPath();
 
     view->setSource(SailfishApp::pathTo("qml/main.qml"));
 //    view->rootContext()->setContextProperty("appVersion", APP_VERSION);
