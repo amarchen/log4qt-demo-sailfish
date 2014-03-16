@@ -18,17 +18,19 @@
 #include "SystemlogAppender"
 #include "Level"
 #include "DailyRollingFileAppender"
+#include "PropertyConfigurator"
 
 #include "qmllogger.h"
 
 /**
  * @brief initLogging
- * @param applicationName Is used for determining app-specific config and log file locations
+ * @param app Is used for determining app-specific config, log file locations, etc
  */
-void initLogging(const QString& applicationName)
+void initLogging(const QCoreApplication& app)
 {
+    Log4Qt::PropertyConfigurator::configure("/usr/share/harbour-log4qtdemo/log4qt.conf");
+    /**
     // Normally you call it all from .conf properties, but you can instantiate it manually too
-
     Log4Qt::LogManager::rootLogger();
 
     // Note that it doesn't work for QML logs from device
@@ -70,8 +72,10 @@ void initLogging(const QString& applicationName)
     Log4Qt::Logger::rootLogger()->addAppender(p_consoleAppender);
     Log4Qt::Logger::rootLogger()->addAppender(p_syslogAppender);
     Log4Qt::Logger::rootLogger()->addAppender(p_fileAppender);
+    */
 
     Log4Qt::Logger::logger(QLatin1String("Main Logger"))->info("Logging started");
+
 
     bool handingMessages = Log4Qt::LogManager::handleQtMessages();
     qDebug() << "Intercepting messages from qDebug is " << handingMessages;
@@ -91,7 +95,7 @@ int main(int argc, char *argv[])
     qmlRegisterType<Company>("harbour.log4qtdemo", 0, 1, "Company");
     qmlRegisterType<QmlLogger>("harbour.log4qtdemo", 0, 1, "Logger");
     QScopedPointer<QGuiApplication> app(SailfishApp::application(argc, argv));
-    initLogging(app->applicationName());
+    initLogging(*app);
 
     QScopedPointer<QQuickView> view(SailfishApp::createView());
     qDebug() << "app's name: " << app->applicationName();

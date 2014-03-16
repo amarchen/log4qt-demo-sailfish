@@ -77,6 +77,7 @@ desktop-file-install --delete-original       \
 %{_datadir}/icons/hicolor/86x86/apps/%{name}.png
 %{_datadir}/applications/%{name}.desktop
 %{_datadir}/%{name}/qml
+%{_datadir}/%{name}/log4qt.conf
 %attr(0755,-,-) %{_bindir}/%{name}
 %{_datadir}/%{name}/lib
 # >> files
