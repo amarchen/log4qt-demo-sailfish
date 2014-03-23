@@ -46,6 +46,8 @@ Page {
 
     Company {
         id: c2
+
+        // It could be not so good idea to give long names to loggers though
         property Logger log: Logger {name: "QML Microsoft"}
         name: "Microsoft"
         ceo: bill
@@ -131,7 +133,7 @@ Page {
     }
 
     Component.onCompleted: {
-        log.debug("Main page completed, objectName ")
+        log.debug("Main page completed")
     }
 
 }
