@@ -19,8 +19,14 @@
 #include "Level"
 #include "DailyRollingFileAppender"
 #include "PropertyConfigurator"
+#include "helpers/factory.h"
+#include "Appender"
 
 #include "qmllogger.h"
+
+Log4Qt::Appender *create_system_log_appender() {
+    return new Log4Qt::SystemLogAppender;
+}
 
 /**
  * @brief initLogging
@@ -28,14 +34,14 @@
  */
 void initLogging(const QCoreApplication& app)
 {
+    Log4Qt::Factory::registerAppender("org.apache.log4j.SystemLogAppender", create_system_log_appender);
+    Log4Qt::LogManager::setHandleQtMessages(true);
     Log4Qt::PropertyConfigurator::configure("/usr/share/harbour-log4qtdemo/log4qt.conf");
     /**
     // Normally you call it all from .conf properties, but you can instantiate it manually too
     Log4Qt::LogManager::rootLogger();
 
     // Note that it doesn't work for QML logs from device
-    Log4Qt::LogManager::setHandleQtMessages(true);
-
 
     Log4Qt::SimpleTimeLayout *p_layout = new Log4Qt::SimpleTimeLayout();
 
