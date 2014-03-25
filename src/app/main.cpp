@@ -9,25 +9,29 @@
 #include <QQmlEngine>
 #include <QGuiApplication>
 
-#include "ConsoleAppender"
-#include "ColorConsoleAppender"
-#include "SimpleTimeLayout"
 #include "Logger"
 #include "LogManager"
 
-#include "SystemlogAppender"
-#include "Level"
-#include "DailyRollingFileAppender"
+// Includes below are needed for manual configuration. If you use .conf file for configuring,
+// just PropertyConfigurator is enough
+//#include "ConsoleAppender"
+//#include "ColorConsoleAppender"
+//#include "SimpleTimeLayout"
+//#include "SystemlogAppender"
+//#include "Level"
+//#include "DailyRollingFileAppender"
+//#include "helpers/factory.h"
+//#include "Appender"
+
+
 #include "PropertyConfigurator"
-#include "helpers/factory.h"
-#include "Appender"
 
 #include <QFile>
 #include "qmllogger.h"
 
-Log4Qt::Appender *create_system_log_appender() {
-    return new Log4Qt::SystemLogAppender;
-}
+//Log4Qt::Appender *create_system_log_appender() {
+//    return new Log4Qt::SystemLogAppender;
+//}
 
 /**
  * @brief initLogging
@@ -35,10 +39,10 @@ Log4Qt::Appender *create_system_log_appender() {
  */
 void initLogging(const QCoreApplication& app)
 {
-    Log4Qt::Factory::registerAppender("org.apache.log4j.SystemLogAppender", create_system_log_appender);
 
-    const QString logConfigFilePath("/home/nemo/.config/harbour-log4qtdemo/log4qt.conf");
-    const QString fallbackLogConfigPath("/usr/share/harbour-log4qtdemo/log4qt.conf");
+    const QString& binaryName = QCoreApplication::applicationName();
+    const QString logConfigFilePath("/home/nemo/.config/" + binaryName + "/log4qt.conf");
+    const QString fallbackLogConfigPath("/usr/share/" + binaryName + "/log4qt.conf");
 
     const QString& usedConfigFile = QFile::exists(logConfigFilePath) ? logConfigFilePath : fallbackLogConfigPath;
     Log4Qt::PropertyConfigurator::configure(usedConfigFile);
@@ -49,6 +53,7 @@ void initLogging(const QCoreApplication& app)
 
     /**
     // Normally you call it all from .conf properties, but you can instantiate it manually too
+    Log4Qt::Factory::registerAppender("org.apache.log4j.SystemLogAppender", create_system_log_appender);
     Log4Qt::LogManager::rootLogger();
 
     // Note that it doesn't work for QML logs from device
