@@ -37,9 +37,8 @@
  * @brief initLogging
  * @param app Is used for determining app-specific config, log file locations, etc
  */
-void initLogging(const QCoreApplication& app)
+void initLogging()
 {
-
     const QString& binaryName = QCoreApplication::applicationName();
     const QString logConfigFilePath("/home/nemo/.config/" + binaryName + "/log4qt.conf");
     const QString fallbackLogConfigPath("/usr/share/" + binaryName + "/log4qt.conf");
@@ -119,7 +118,7 @@ int main(int argc, char *argv[])
     qmlRegisterType<Company>("harbour.log4qtdemo", 0, 1, "Company");
     qmlRegisterType<QmlLogger>("harbour.log4qtdemo", 0, 1, "Logger");
     QScopedPointer<QGuiApplication> app(SailfishApp::application(argc, argv));
-    initLogging(*app);
+    initLogging();
 
     QScopedPointer<QQuickView> view(SailfishApp::createView());
     qDebug() << "app's name: " << app->applicationName();
