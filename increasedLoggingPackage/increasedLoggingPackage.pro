@@ -12,7 +12,6 @@ INSTALLS += conf_file
 OTHER_FILES += qml/increasedLoggingPackage.qml \
     qml/cover/CoverPage.qml \
     qml/pages/FirstPage.qml \
-    qml/pages/SecondPage.qml \
     rpm/increasedLoggingPackage.spec \
     increasedLoggingPackage.desktop \
     log4qt.conf
