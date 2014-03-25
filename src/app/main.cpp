@@ -22,6 +22,7 @@
 #include "helpers/factory.h"
 #include "Appender"
 
+#include <QFile>
 #include "qmllogger.h"
 
 Log4Qt::Appender *create_system_log_appender() {
@@ -35,8 +36,17 @@ Log4Qt::Appender *create_system_log_appender() {
 void initLogging(const QCoreApplication& app)
 {
     Log4Qt::Factory::registerAppender("org.apache.log4j.SystemLogAppender", create_system_log_appender);
+
+    const QString logConfigFilePath("/home/nemo/.config/harbour-log4qtdemo/log4qt.conf");
+    const QString fallbackLogConfigPath("/usr/share/harbour-log4qtdemo/log4qt.conf");
+
+    const QString& usedConfigFile = QFile::exists(logConfigFilePath) ? logConfigFilePath : fallbackLogConfigPath;
+    Log4Qt::PropertyConfigurator::configure(usedConfigFile);
     Log4Qt::LogManager::setHandleQtMessages(true);
-    Log4Qt::PropertyConfigurator::configure("/usr/share/harbour-log4qtdemo/log4qt.conf");
+
+    qDebug() << "Using following log config file: " << usedConfigFile;
+
+
     /**
     // Normally you call it all from .conf properties, but you can instantiate it manually too
     Log4Qt::LogManager::rootLogger();
@@ -91,6 +101,9 @@ void initLogging(const QCoreApplication& app)
     qDebug() << "generic cache loc" << QStandardPaths::standardLocations(QStandardPaths::GenericCacheLocation);
     qDebug() << "data loc" << QStandardPaths::standardLocations(QStandardPaths::DataLocation);
     qDebug() << "generic data loc" << QStandardPaths::standardLocations(QStandardPaths::GenericDataLocation);
+    qDebug() << "appName: " << QCoreApplication::applicationName();
+    qDebug() << "appFilePath: " << QCoreApplication::applicationFilePath();
+    qDebug() << "appDirPath: " << QCoreApplication::applicationDirPath();
 }
 
 
