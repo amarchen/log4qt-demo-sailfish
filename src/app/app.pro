@@ -13,16 +13,28 @@ QMAKE_RPATHDIR += /usr/share/$$TARGET/lib
 
 INCLUDEPATH += ../../ext/Log4Qt/src ../../ext/Log4Qt/deploy/include
 
-message($$PWD/../../log4qt.conf)
-message($$OUT_PWD/../../log4qt.conf)
-message(/usr/share/$${TARGET})
+# per http://qt-project.org/faq/answer/how_to_deal_correctly_with_project_files_that_should_generate_a_debug_and_r
+# except that build_pass seems to be not needed/working for Sailfish OS
+#
+# Copying config file is per http://www.qtcentre.org/threads/49545-It-is-possible-to-rename-file-with-qmake?highlight=
+# Should work on Windows for Sailfish builds as they use own build machine anyway.
+# If you port this example to something more general, care about adjustments for Windows
+CONFIG(debug, debug|release) {
+    message(Debug build)
+    log4qt_demo_config.extra = cp $$PWD/../../log4qt-debug.conf $$OUT_PWD/../../log4qt.conf
+}
+else {
+    message(Release build)
+    log4qt_demo_config.extra = cp $$PWD/../../log4qt-release.conf $$OUT_PWD/../../log4qt.conf
+}
+log4qt_demo_config.files = $$OUT_PWD/../../log4qt.conf
+log4qt_demo_config.path = /usr/share/$$TARGET
+
 # Covers all versions of .so files
 log4qt_lib.files += $$OUT_PWD/../../ext/Log4Qt/*.s*
 log4qt_lib.path = /usr/share/$$TARGET/lib
 log4qt_demo_engine.files += $$OUT_PWD/../engine/*.s*
 log4qt_demo_engine.path = /usr/share/$$TARGET/lib
-log4qt_demo_config.files = ../../log4qt.conf
-log4qt_demo_config.path = /usr/share/$$TARGET
 
 INSTALLS += log4qt_lib log4qt_demo_engine log4qt_demo_config
 
@@ -38,11 +50,11 @@ OTHER_FILES = \
 #    ../rpm/harbour-log4qtdemo.yaml \
     ../rpm/harbour-log4qtdemo.spec \
 #    ../../log4qt.conf \
-    conf/log4qt.conf \
-#    qml/pages/SailCalc.qml \
-#    qml/main.qml \
+    ../../log4qt-debug.conf \
+    ../../log4qt-release.conf \
     harbour-log4qtdemo.desktop \
-    qml/pages/MainPage.qml
+    qml/pages/MainPage.qml \
+    qml/main.qml
 
 INCLUDEPATH += $$PWD/../engine
 
@@ -50,7 +62,3 @@ HEADERS += \
     ../engine/company.h \
     ../engine/person.h \
     qmllogger.h
-
-OTHER_FILES += \
-    qml/main.qml
-
