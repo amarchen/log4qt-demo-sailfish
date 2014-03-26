@@ -17,11 +17,11 @@
 //#include "ConsoleAppender"
 //#include "ColorConsoleAppender"
 //#include "SimpleTimeLayout"
-//#include "SystemlogAppender"
 //#include "Level"
 //#include "DailyRollingFileAppender"
-//#include "helpers/factory.h"
-//#include "Appender"
+#include "SystemlogAppender"
+#include "helpers/factory.h"
+#include "Appender"
 
 
 #include "PropertyConfigurator"
@@ -29,9 +29,9 @@
 #include <QFile>
 #include "qmllogger.h"
 
-//Log4Qt::Appender *create_system_log_appender() {
-//    return new Log4Qt::SystemLogAppender;
-//}
+Log4Qt::Appender *create_system_log_appender() {
+    return new Log4Qt::SystemLogAppender;
+}
 
 /**
  * @brief initLogging
@@ -39,6 +39,8 @@
  */
 void initLogging()
 {
+    Log4Qt::Factory::registerAppender("org.apache.log4j.SystemLogAppender", create_system_log_appender);
+
     const QString& binaryName = QCoreApplication::applicationName();
     const QString logConfigFilePath("/home/nemo/.config/" + binaryName + "/log4qt.conf");
     const QString fallbackLogConfigPath("/usr/share/" + binaryName + "/log4qt.conf");
@@ -52,7 +54,6 @@ void initLogging()
 
     /**
     // Normally you call it all from .conf properties, but you can instantiate it manually too
-    Log4Qt::Factory::registerAppender("org.apache.log4j.SystemLogAppender", create_system_log_appender);
     Log4Qt::LogManager::rootLogger();
 
     // Note that it doesn't work for QML logs from device
