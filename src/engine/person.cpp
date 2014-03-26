@@ -1,6 +1,7 @@
 #include "person.h"
 #include "Logger"
 #include <QDebug>
+#include "LogStream"
 
 LOG4QT_DECLARE_STATIC_LOGGER(logger, Person)
 
@@ -26,4 +27,15 @@ void Person::setName(QString arg)
         m_name = arg;
         emit nameChanged(arg);
     }
+}
+
+LOG4QTDEMOENGINE_EXPORT QDebug operator<<(QDebug dbg, const Person &person) {
+    dbg.nospace() << "(" << person.name() << ")";
+    return dbg.maybeSpace();
+}
+
+LOG4QTDEMOENGINE_EXPORT Log4Qt::LogStream &operator<<(Log4Qt::LogStream rStream,
+                                                const Person &rPerson) {
+    rStream << "(ls: " << rPerson.name() << ")";
+    return rStream;
 }

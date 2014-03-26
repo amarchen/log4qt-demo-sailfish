@@ -30,6 +30,9 @@ Page {
 
         Component.onCompleted:  {
             log.debug("Bill completed.")
+
+            // will print object type and pointer only, no QDebug stream info
+            log.debug("bill's object: " + bill)
         }
     }
 

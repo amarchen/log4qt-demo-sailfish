@@ -10,6 +10,9 @@
 #  define LOG4QTDEMOENGINE_EXPORT Q_DECL_IMPORT
 #endif
 
+namespace Log4Qt {
+    class LogStream;
+}
 
 class LOG4QTDEMOENGINE_EXPORT Person : public QObject
 {
@@ -31,10 +34,7 @@ private:
 
 };
 
-//QDebug operator<<(QDebug dbg, Person &p)
-//{
-//    dbg.nospace() << "(" << p.name() << ")";
-//    return dbg.space();
-//}
-
+LOG4QTDEMOENGINE_EXPORT QDebug operator<<(QDebug dbg, const Person &person);
+LOG4QTDEMOENGINE_EXPORT Log4Qt::LogStream &operator<<(Log4Qt::LogStream rStream,
+                                                const Person &rPerson);
 #endif // PERSON_H

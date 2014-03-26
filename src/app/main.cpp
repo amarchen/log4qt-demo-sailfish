@@ -97,6 +97,9 @@ void initLogging()
 
     Log4Qt::Logger::logger(QLatin1String("Main Logger"))->info("Logging started");
 
+//    Log4Qt::Logger::rootLogger()->info("Person to root logger: %1", qobject_cast<QObject*>(&ivan));
+//    Log4Qt::Logger::rootLogger()->info("Person to root logger: %1", &ivan);
+
 
     bool handingMessages = Log4Qt::LogManager::handleQtMessages();
     qDebug() << "Intercepting messages from qDebug is " << handingMessages;
@@ -119,7 +122,14 @@ int main(int argc, char *argv[])
     qmlRegisterType<Company>("harbour.log4qtdemo", 0, 1, "Company");
     qmlRegisterType<QmlLogger>("harbour.log4qtdemo", 0, 1, "Logger");
     QScopedPointer<QGuiApplication> app(SailfishApp::application(argc, argv));
+
     initLogging();
+    Person ivan("Ivan Kuztetsov");
+
+    Log4Qt::Logger::rootLogger()->info() << ivan;
+    Log4Qt::Logger::rootLogger()->info() << "Ivan via LogStream: " << ivan;
+    qDebug() << "Ivan via QDebug stream: " << ivan;
+
 
     QScopedPointer<QQuickView> view(SailfishApp::createView());
     qDebug() << "app's name: " << app->applicationName();
