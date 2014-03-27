@@ -33,6 +33,7 @@ Log4Qt::Appender *create_system_log_appender() {
     return new Log4Qt::SystemLogAppender;
 }
 
+
 /**
  * @brief initLogging
  * @param app Is used for determining app-specific config, log file locations, etc

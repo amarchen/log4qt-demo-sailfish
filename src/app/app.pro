@@ -49,12 +49,12 @@ OTHER_FILES = \
 # how to kill this particular Creator's plugin
 #    ../rpm/harbour-log4qtdemo.yaml \
     ../rpm/harbour-log4qtdemo.spec \
-#    ../../log4qt.conf \
     ../../log4qt-debug.conf \
     ../../log4qt-release.conf \
     harbour-log4qtdemo.desktop \
     qml/pages/MainPage.qml \
-    qml/main.qml
+    qml/main.qml \
+    qml/pages/BrowserPage.qml
 
 INCLUDEPATH += $$PWD/../engine
 
