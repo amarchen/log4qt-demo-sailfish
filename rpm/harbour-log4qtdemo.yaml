@@ -1,0 +1,61 @@
+Name: harbour-log4qtdemo
+Summary: Helloworld Pro for Sailfish
+Version: 0.2
+Release: 2
+Group: Qt/Qt
+License: MIT
+Sources:
+- '%{name}-%{version}.tar.bz2'
+Description: |-
+  Log4Qt logging library usage demo
+Configure: none
+Builder: qtc5
+PkgConfigBR:
+- Qt5Core
+- Qt5Qml
+- Qt5Quick
+- sailfishapp
+
+Requires:
+- libsailfishapp
+Files:
+# Do not include whole %{_datadir}/applications as that would include tests too
+- '%defattr(0644,root,root,0755)'
+- '%{_datadir}/icons/hicolor/86x86/apps/%{name}.png'
+- '%{_datadir}/applications/%{name}.desktop'
+- '%{_datadir}/%{name}/qml'
+- '%{_datadir}/%{name}/log4qt.conf'
+
+- '%attr(0755,-,-) %{_bindir}/%{name}'
+
+#lib stuff then
+- '%{_datadir}/%{name}/lib'
+
+PkgBR: []
+
+SubPackages:
+    - Name: test
+      Summary: Tests for the Helloworld Pro for Sailfish
+      Group: Qt/Qt
+      Description: |-
+        Tests package for the Helloworld Pro for Sailfish
+      AutoDepend: true
+      PkgConfigBR:
+      - Qt5QuickTest
+      Requires:
+      - qt5-qtdeclarative-import-qttest
+      Files:
+        - '%{_bindir}/tst-harbour-log4qtdemo-cppTests'
+        - '%{_bindir}/tst-harbour-log4qtdemo-qmlTests'
+        - '%{_datadir}/tst-harbour-log4qtdemo-qmlTests/*.qml'
+        # Script for starting tests on emulator and device
+        - '%{_datadir}/tst-harbour-log4qtdemo-qmlTests/*.sh'
+
+    # - Name: fake
+    #   Summary: Not needed files
+    #   Group: Qt/Qt
+    #   Description: |-
+    #     Fake package
+    #   AutoDepend: true
+    #   Files:
+    #     - '%{_datadir}/harbour-log4qtdemo-engine'
