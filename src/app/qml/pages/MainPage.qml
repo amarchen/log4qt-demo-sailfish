@@ -4,15 +4,15 @@ import Sailfish.Silica 1.0
 
 import harbour.log4qtdemo 0.1
 
-
-// Just a simple example to demo both property binding and doing something via pulley menu action
-// to provide a sample of Sailfish-specific UI testing
 Page {
     id: page
 
+    // You can have many loggers in many levels and for many objects
+    // In production code you are likely to create one logger per QML file for finding
+    // log locations fast (by a logger name used)
     property Logger log: Logger {name: "page"}
 
-    // testing interface
+    // testing interface. Exposes internal properties to the demo tests
     property QtObject _i: QtObject {
         property alias c1: c1
         property alias c2: c2
@@ -32,6 +32,7 @@ Page {
             log.debug("Bill completed.")
 
             // will print object type and pointer only, no QDebug stream info
+            // TODO: think if it's possible to print as much info as << in c++ does
             log.debug("bill's object: " + bill)
         }
     }
@@ -140,6 +141,7 @@ Page {
 
     Component.onCompleted: {
         log.debug("Main page completed")
+        console.log("Main page completed, printing via console.log")
     }
 
 }

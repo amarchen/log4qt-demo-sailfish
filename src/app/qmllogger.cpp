@@ -2,7 +2,9 @@
 
 #include "Logger"
 
-
+// All the logging calls here first retrive logger by name
+// In production code you may like to cache the obtained logger pointer to avoid constant lookups
+// TODO: Cache the logger pointer after it is retrieved once
 QmlLogger::QmlLogger(QObject *parent) :
     QObject(parent)
 {

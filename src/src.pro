@@ -1,7 +1,7 @@
 TEMPLATE = subdirs
 
-#app is just a small wrapper for testability, i.e. for testing engine's objects
-# without the need to link/compile-in everything
+# Engine supplies c++ objects (tested in the cppTests)
+# App provides QMLs (tested in qmlTests) and wires c++/qml together
 SUBDIRS = engine app
 
 CONFIG += ordered

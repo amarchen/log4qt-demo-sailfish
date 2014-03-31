@@ -19,6 +19,7 @@
 //#include "SimpleTimeLayout"
 //#include "Level"
 //#include "DailyRollingFileAppender"
+
 #include "SystemlogAppender"
 #include "helpers/factory.h"
 #include "Appender"
@@ -29,6 +30,9 @@
 #include <QFile>
 #include "qmllogger.h"
 
+// For some reason exactly SystemLogAppender doesn't have a factory registered in log4qt,
+// so in order for it to be instantiatable from .conf file (or even in general?) we declare factory
+// right here and will register it in initLoggin()
 Log4Qt::Appender *create_system_log_appender() {
     return new Log4Qt::SystemLogAppender;
 }
@@ -36,18 +40,33 @@ Log4Qt::Appender *create_system_log_appender() {
 
 /**
  * @brief initLogging
- * @param app Is used for determining app-specific config, log file locations, etc
+ * A lot of commented code in this method is the alternative way of setting up same (or similar)
+ * logger's structure as .conf file orders
+ * TODO: extract this manual creation and .conf-based creation into the separate method and just
+ *       comment out the call for the manual one
  */
 void initLogging()
 {
+    // Should really be done in log4qt, but somehow it's missing these
     Log4Qt::Factory::registerAppender("org.apache.log4j.SystemLogAppender", create_system_log_appender);
 
+    // Sailfish OS-specific locations for the app settings files and app's own files
+    // First we check if log4qt.conf is present in .config If it isn't present we fallback to the .conf file
+    // in the app's data folder
+    //
+    // This way normally your app can produce minimal logging based on data folder file settings
+    // And when user has troubles and more logging is needed, you can just drop and extra conf file to .config
+    // (e.g. via increasedLoggingPackage RPM installation)
     const QString& binaryName = QCoreApplication::applicationName();
     const QString logConfigFilePath("/home/nemo/.config/" + binaryName + "/log4qt.conf");
     const QString fallbackLogConfigPath("/usr/share/" + binaryName + "/log4qt.conf");
 
     const QString& usedConfigFile = QFile::exists(logConfigFilePath) ? logConfigFilePath : fallbackLogConfigPath;
     Log4Qt::PropertyConfigurator::configure(usedConfigFile);
+
+    // For capturing qDebug() and console.log() messages
+    // Note that console.log() might fail in Sailfish OS device builds. Not sure why, but it seems like
+    // console.log() exactly in Sailfish OS device release builds doesn't go through the same qDebug() channel
     Log4Qt::LogManager::setHandleQtMessages(true);
 
     qDebug() << "Using following log config file: " << usedConfigFile;
@@ -56,8 +75,6 @@ void initLogging()
     /**
     // Normally you call it all from .conf properties, but you can instantiate it manually too
     Log4Qt::LogManager::rootLogger();
-
-    // Note that it doesn't work for QML logs from device
 
     Log4Qt::SimpleTimeLayout *p_layout = new Log4Qt::SimpleTimeLayout();
 
@@ -97,51 +114,32 @@ void initLogging()
     */
 
     Log4Qt::Logger::logger(QLatin1String("Main Logger"))->info("Logging started");
-
-//    Log4Qt::Logger::rootLogger()->info("Person to root logger: %1", qobject_cast<QObject*>(&ivan));
-//    Log4Qt::Logger::rootLogger()->info("Person to root logger: %1", &ivan);
-
-
-    bool handingMessages = Log4Qt::LogManager::handleQtMessages();
-    qDebug() << "Intercepting messages from qDebug is " << handingMessages;
-    qDebug() << "temp loc" << QStandardPaths::standardLocations(QStandardPaths::TempLocation);
-    qDebug() << "config loc" << QStandardPaths::standardLocations(QStandardPaths::ConfigLocation);
-    qDebug() << "cache loc" << QStandardPaths::standardLocations(QStandardPaths::CacheLocation);
-    qDebug() << "generic cache loc" << QStandardPaths::standardLocations(QStandardPaths::GenericCacheLocation);
-    qDebug() << "data loc" << QStandardPaths::standardLocations(QStandardPaths::DataLocation);
-    qDebug() << "generic data loc" << QStandardPaths::standardLocations(QStandardPaths::GenericDataLocation);
-    qDebug() << "appName: " << QCoreApplication::applicationName();
-    qDebug() << "appFilePath: " << QCoreApplication::applicationFilePath();
-    qDebug() << "appDirPath: " << QCoreApplication::applicationDirPath();
 }
 
 
 int main(int argc, char *argv[])
 {
-
+    qmlRegisterType<QmlLogger>("harbour.log4qtdemo", 0, 1, "Logger");
     qmlRegisterType<Person>("harbour.log4qtdemo", 0, 1, "Person");
     qmlRegisterType<Company>("harbour.log4qtdemo", 0, 1, "Company");
-    qmlRegisterType<QmlLogger>("harbour.log4qtdemo", 0, 1, "Logger");
+
     QScopedPointer<QGuiApplication> app(SailfishApp::application(argc, argv));
 
+    // Init logging should be called after app object creation as initLogging() will examine
+    // QCoreApplication for determining the .conf files locations
     initLogging();
-    Person ivan("Ivan Kuztetsov");
 
+    // A short demo of printing an object to qDebug() and LogStream from c++
+    // TODO: Move to some other place. At least a stad-alone funtion
+    Person ivan("Ivan Kuztetsov");
+    Log4Qt::Logger::rootLogger()->debug("trying streaming object now");
     Log4Qt::Logger::rootLogger()->info() << ivan;
     Log4Qt::Logger::rootLogger()->info() << "Ivan via LogStream: " << ivan;
     qDebug() << "Ivan via QDebug stream: " << ivan;
 
 
     QScopedPointer<QQuickView> view(SailfishApp::createView());
-    qDebug() << "app's name: " << app->applicationName();
-    qDebug() << "app's die path: " << app->applicationDirPath();
-
     view->setSource(SailfishApp::pathTo("qml/main.qml"));
-//    view->rootContext()->setContextProperty("appVersion", APP_VERSION);
-//    view->rootContext()->setContextProperty("appBuildNum", APP_BUILDNUM);
-//    view->engine()->addImportPath(SailfishApp::pathTo("qml/components").toString());
-//    view->engine()->addImportPath(SailfishApp::pathTo("lib").toString());
-
     view->show();
 
     return app->exec();

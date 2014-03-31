@@ -4,14 +4,14 @@ import "pages"
 
 ApplicationWindow
 {
-    initialPage: sailCalcComponent
+    initialPage: mainPageComponent
     Component {
-        id: sailCalcComponent
+        id: mainPageComponent
         MainPage { }
     }
 
     Component.onCompleted: {
-        console.log("nameless AppWindow completed. objectName is " + objectName)
+        console.log("Nameless AppWindow completed. objectName is " + objectName)
     }
 }
 

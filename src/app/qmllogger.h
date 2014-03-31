@@ -5,7 +5,8 @@
 
 /**
  * @brief A Wrapper on top of Logger only for passing calls from Qml to Log4Qt's logger
- *        Doesn't cache logger simpler (as QML sets name property after creation)
+ *        Something like this should be a part of log4qt actually. Or the basic logger there
+ *        could have its methods declared as Q_INVOKABLE for making it possible to call methods from QML
  */
 class QmlLogger : public QObject
 {

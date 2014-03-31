@@ -9,10 +9,6 @@ class TestCompany : public QObject
 public:
     explicit TestCompany(QObject *parent = 0);
 
-signals:
-
-public slots:
-
 private slots:
     void emitsNameChangedSignal();
 
