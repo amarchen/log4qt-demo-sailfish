@@ -21,6 +21,7 @@
 //#include "DailyRollingFileAppender"
 
 #include "SystemlogAppender"
+#include "FileAppender"
 #include "helpers/factory.h"
 #include "Appender"
 
@@ -63,6 +64,25 @@ void initLogging()
 
     const QString& usedConfigFile = QFile::exists(logConfigFilePath) ? logConfigFilePath : fallbackLogConfigPath;
     Log4Qt::PropertyConfigurator::configure(usedConfigFile);
+
+    // Uglyish hack for replacing $XDG_CACHE_HOME with the proper cache directory
+    // TODO: Implement replacing of $XDG_CACHE_HOME (and other vars?) with the proper values before configuring log4qt
+
+    // Iterate all appenders attached to root logger and whenever a FileAppender (or its descender found), replace
+    // $XDG_CACHE_HOME with the proper folder name
+    QList<Log4Qt::Appender *> appenders = Log4Qt::LogManager::rootLogger()->appenders();
+    QList<Log4Qt::Appender *>::iterator i;
+    for (i = appenders.begin(); i != appenders.end(); ++i) {
+          Log4Qt::FileAppender* fa = qobject_cast<Log4Qt::FileAppender*>(*i);
+          if(fa) {
+              QString filename = fa->file();
+              filename.replace("$XDG_CACHE_HOME",
+                              QStandardPaths::standardLocations(QStandardPaths::CacheLocation).at(0)
+                              );
+              fa->setFile(filename);
+              fa->activateOptions();
+          }
+    }
 
     // For capturing qDebug() and console.log() messages
     // Note that console.log() might fail in Sailfish OS device builds. Not sure why, but it seems like
