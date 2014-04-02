@@ -51,6 +51,7 @@ OTHER_FILES = \
 # how to kill this particular Creator's plugin
 #    ../rpm/harbour-log4qtdemo.yaml \
     ../rpm/harbour-log4qtdemo.spec \
+    ../harbour-log4qtdemo.png \
     ../../log4qt-debug.conf \
     ../../log4qt-release.conf \
     harbour-log4qtdemo.desktop \

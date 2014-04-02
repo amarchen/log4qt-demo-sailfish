@@ -16,7 +16,7 @@ Summary:    Fake app for increasing amount of logging by Log4Qt Demo app
 Version:    1.0
 Release:    1
 Group:      Qt/Qt
-License:    LICENSE
+License:    Public domain
 URL:        http://example.org/
 Source0:    %{name}-%{version}.tar.bz2
 Source100:  increasedLoggingPackage.yaml

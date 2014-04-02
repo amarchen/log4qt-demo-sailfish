@@ -14,7 +14,7 @@ Name:       harbour-log4qtdemo
 %{!?qtc_qmake5:%define qtc_qmake5 %qmake5}
 %{!?qtc_make:%define qtc_make make}
 %{?qtc_builddir:%define _builddir %qtc_builddir}
-Summary:    Helloworld Pro for Sailfish
+Summary:    Log4Qt demo
 Version:    0.2
 Release:    2
 Group:      Qt/Qt
@@ -29,17 +29,17 @@ BuildRequires:  pkgconfig(sailfishapp)
 BuildRequires:  desktop-file-utils
 
 %description
-Log4Qt logging library usage demo
+Log4Qt logging library usage demo. Created for Sailfish OS, but same approach can be used for all the other platforms as well
 
 %package test
-Summary:    Tests for the Helloworld Pro for Sailfish
+Summary:    Tests for the Log4Qt demo app
 Group:      Qt/Qt
 Requires:   %{name} = %{version}-%{release}
 Requires:   qt5-qtdeclarative-import-qttest
 BuildRequires:  pkgconfig(Qt5QuickTest)
 
 %description test
-Tests package for the Helloworld Pro for Sailfish
+Tests package for the Log4Qt demo app
 
 %prep
 %setup -q -n %{name}-%{version}

@@ -130,7 +130,7 @@ int main(int argc, char *argv[])
     initLogging();
 
     // A short demo of printing an object to qDebug() and LogStream from c++
-    // TODO: Move to some other place. At least a stad-alone funtion
+    // TODO: Move to some other place. At least to a stand-alone function
     Person ivan("Ivan Kuztetsov");
     Log4Qt::Logger::rootLogger()->debug("trying streaming object now");
     Log4Qt::Logger::rootLogger()->info() << ivan;
