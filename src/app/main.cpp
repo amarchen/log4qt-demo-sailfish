@@ -72,13 +72,24 @@ void initLogging()
     // $XDG_CACHE_HOME with the proper folder name
     QList<Log4Qt::Appender *> appenders = Log4Qt::LogManager::rootLogger()->appenders();
     QList<Log4Qt::Appender *>::iterator i;
+    QDir pathCreator;
     for (i = appenders.begin(); i != appenders.end(); ++i) {
           Log4Qt::FileAppender* fa = qobject_cast<Log4Qt::FileAppender*>(*i);
           if(fa) {
               QString filename = fa->file();
+
+              // As per March 2014 on emulator QStandardPaths::CacheLocation is /home/nemo/.cache
+              // while on device it is /home/nemo/.cache/app-name
+              // both things are fine, logging path will just be a little deeper on device
               filename.replace("$XDG_CACHE_HOME",
                               QStandardPaths::standardLocations(QStandardPaths::CacheLocation).at(0)
                               );
+              // make sure loggin dir exists
+              QFileInfo fi(filename);
+              if(!pathCreator.mkpath(fi.path())) {
+                  Log4Qt::LogManager::rootLogger()->error("Failed to create dir for logging: %1", fi.path());
+              }
+
               fa->setFile(filename);
               fa->activateOptions();
           }
