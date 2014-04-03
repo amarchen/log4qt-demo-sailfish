@@ -59,7 +59,9 @@ void initLogging()
     // And when user has troubles and more logging is needed, you can just drop and extra conf file to .config
     // (e.g. via increasedLoggingPackage RPM installation)
     const QString& binaryName = QCoreApplication::applicationName();
-    const QString logConfigFilePath("/home/nemo/.config/" + binaryName + "/log4qt.conf");
+                                    // i.e. "/home/nemo/.config"
+    const QString logConfigFilePath(QStandardPaths::standardLocations(QStandardPaths::ConfigLocation).at(0)
+                                    + binaryName + "/log4qt.conf");
     const QString fallbackLogConfigPath("/usr/share/" + binaryName + "/log4qt.conf");
 
     const QString& usedConfigFile = QFile::exists(logConfigFilePath) ? logConfigFilePath : fallbackLogConfigPath;
