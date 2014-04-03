@@ -1,9 +1,9 @@
 Name: harbour-log4qtdemo
 Summary: Log4Qt demo
-Version: 0.2
-Release: 2
+Version: 1.0
+Release: 3
 Group: Qt/Qt
-License: MIT
+License: Public domain
 Sources:
 - '%{name}-%{version}.tar.bz2'
 Description: |-

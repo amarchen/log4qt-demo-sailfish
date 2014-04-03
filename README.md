@@ -19,6 +19,7 @@
 There are a number TODOs in the code that you are free to take on. Here are some of them
 - Migrate docs from [blog post at codingsubmarine](http://www.codingsubmarine.com/log4qt-for-jolla-sailfish-os-and-in-general) to here (Artem the post author grants public domain license on the post text and images)
   - and make them even better
+- main.cpp: Implement replacing of $XDG_CACHE_HOME (and other vars?) with the proper values before configuring log4qt (and in some stand-alone function?)
 - main.cpp: Extract this manual logging setup and .conf-based setup into the separate methods and just comment out the call to one of them
 - main.cpp: Move "Ivan Kuznetsov" object streaming exampple to some other place. At least to a stand-alone function
 - qmllogger.cpp: Cache the logger pointer after it is retrieved once

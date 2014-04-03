@@ -15,10 +15,10 @@ Name:       harbour-log4qtdemo
 %{!?qtc_make:%define qtc_make make}
 %{?qtc_builddir:%define _builddir %qtc_builddir}
 Summary:    Log4Qt demo
-Version:    0.2
-Release:    2
+Version:    1.0
+Release:    3
 Group:      Qt/Qt
-License:    MIT
+License:    Public domain
 Source0:    %{name}-%{version}.tar.bz2
 Source100:  harbour-log4qtdemo.yaml
 Requires:   libsailfishapp
