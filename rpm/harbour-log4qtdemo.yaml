@@ -1,13 +1,13 @@
 Name: harbour-log4qtdemo
-Summary: Helloworld Pro for Sailfish
-Version: 0.2
-Release: 2
+Summary: Log4Qt demo
+Version: 1.0
+Release: 3
 Group: Qt/Qt
-License: MIT
+License: Public domain
 Sources:
 - '%{name}-%{version}.tar.bz2'
 Description: |-
-  Log4Qt logging library usage demo
+  Log4Qt logging library usage demo. Created for Sailfish OS, but same approach can be used for all the other platforms as well
 Configure: none
 Builder: qtc5
 PkgConfigBR:
@@ -35,10 +35,10 @@ PkgBR: []
 
 SubPackages:
     - Name: test
-      Summary: Tests for the Helloworld Pro for Sailfish
+      Summary: Tests for the Log4Qt demo app
       Group: Qt/Qt
       Description: |-
-        Tests package for the Helloworld Pro for Sailfish
+        Tests package for the Log4Qt demo app
       AutoDepend: true
       PkgConfigBR:
       - Qt5QuickTest
@@ -52,7 +52,7 @@ SubPackages:
         - '%{_datadir}/tst-harbour-log4qtdemo-qmlTests/*.sh'
 
     # - Name: fake
-    #   Summary: Not needed files
+    #   Summary: Not needed files, uncomment if your builds generate unneeded files and it's difficult to stop generating them
     #   Group: Qt/Qt
     #   Description: |-
     #     Fake package

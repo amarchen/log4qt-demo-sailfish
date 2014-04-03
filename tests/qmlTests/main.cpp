@@ -5,8 +5,15 @@
 #include "company.h"
 #include "qmllogger.h"
 
-// SailCalcTestSet is just a convenient name for reports - not linked to any of the main project entities
-//QUICK_TEST_MAIN(Log4QtDemoTestSet)
+/**
+ * No log4qt logs will be printed during the test execution as we do not initialize/configure any logging
+ * facilities. Log4qt library will still be called, but without configured logging pipeline
+ * all these calls will result in nothing being printed
+ * qDebug() and console.log() will still be printed (as intercepting these by log4qt isn't activated as well)
+ */
+
+// That is just the same what QUICK_TEST_MAIN(Log4QtDemoTestSet) is doing except that
+// we register QML objects first
 int main(int argc, char **argv) {
     qmlRegisterType<Person>("harbour.log4qtdemo", 0, 1, "Person");
     qmlRegisterType<Company>("harbour.log4qtdemo", 0, 1, "Company");
